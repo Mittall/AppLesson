@@ -1,0 +1,116 @@
+<h1 align="center">Lesson</h1>
+<hr/>
+<ul>  
+  <h3>Lesson#<%= @lesson.id %></h3>
+  <li>
+    <strong>Lesson Name : </strong>
+    <%= @lesson.name %>
+  </li>
+
+  <li>
+    <strong>Lesson Category : </strong>
+    <%= @lesson.category %>
+  </li>
+
+  <li>
+    <strong>Lesson Level : </strong>
+    <%= @lesson.level %>
+  </li>
+  <div id="showDoc"><a href="#">Click to Show Documents</a></div>
+  <% for document in @lesson.documents %>  
+  <ul>
+    <div id="doc">
+      <h3>Document</h3>
+      <li>
+        <strong>Document Title : </strong>
+        <%= document.title %>
+      </li>
+
+      <li>
+        <strong>Document image : </strong>
+        <% if document.image_content_type == "video/mp4" %>
+          <%= video_tag document.image, :size => "200x200", :controls => true %><br/>
+        <% else %>
+          <%= image_tag document.image.url, :size => "70x70" %><br/>
+        <% end %>
+      </li>
+      <div id="showQue"><a href="#">Click to Show Questions</a></div>
+    </div>
+  <ul>
+  <% end %>
+  <ul>
+    <% for question in @lesson.questions %>
+      <div id="que">
+      <h3>Question#<%= question.id %></h3>
+        <ol>
+        <li>
+          <strong>Question Name : </strong>
+          <%= question.name %><br/>
+        
+          <strong>Question Content : </strong>
+          <%= question.content %><br/>
+        
+          <strong>Question image : </strong>
+          <% if question.que_image_content_type == "video/mp4" %>
+            <%= video_tag question.que_image, :size => "200x200", :controls => true %><br/>
+          <% else %>
+            <%= image_tag question.que_image.url, :size => "70x70" %><br/>
+          <% end %>
+
+        </li>  
+        <div id="showAns"><a href="#">Click to Show Answers</a></div>  
+      </div>
+    <ul>  
+      <div id="ans">
+        <% for answer in question.answers %>
+          <h3>Answer of question#<%= question.id %></h3>
+          <ol>
+          <li>
+            <strong>Correct Answer : </strong>
+            <%= answer.correct_answer %><br/>
+
+            <strong>Answer Content : </strong>
+            <%= answer.content %><br/>
+
+            <strong>Answer image : </strong>
+            <% if answer.ans_image_content_type == "video/mp4" %>
+              <%= video_tag answer.ans_image, :size => "200x200", :controls => true %><br/>
+            <% else %>
+              <%= image_tag answer.ans_image.url, :size => "70x70" %><br/>
+            <% end %>
+          </li>       
+          </ol>
+        <% end %> 
+      </div> 
+    </ul>  
+    <% end %>
+  </ul>
+  </ul>
+  </ul>  
+</ul>  
+
+
+<br/>
+<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
+<%= link_to 'Back', lessons_path %>
+
+<script>
+  $(document).ready(function(){
+    $('#doc').hide();
+    $('#que').hide();
+    $('#ans').hide();
+    
+    $('#showDoc').click(function(){
+      $('#doc').show();
+    });
+
+    $('#showQue').click(function(){
+      $('#que').show();
+    });
+
+    $('#showAns').click(function(){
+      $('#ans').show();
+    });
+
+  });
+</script>

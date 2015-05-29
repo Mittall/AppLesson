@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lesson:</strong>
+  <%= @lesson_image_info.lesson_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @lesson_image_info.title %>
+</p>
+
+<p>
+  <strong>Lesson image:</strong>
+  <%= @lesson_image_info.lesson_image %>
+</p>
+
+<%= link_to 'Edit', edit_lesson_image_info_path(@lesson_image_info) %> |
+<%= link_to 'Back', lesson_image_infos_path %>

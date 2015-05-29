@@ -1,0 +1,133 @@
+<%= nested_form_for(@lesson) do |f| %>
+  <% if @lesson.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+      <ul align="center">
+      <% @lesson.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table align="center">
+    <tr>
+    <div class="field">
+      <td><%= f.label :lesson_name %> : </td>
+      <td><%= f.text_field :name %></td>
+    </div>
+    </tr>
+    <tr></tr>
+    <tr>
+    <div class="field">
+      <td><%= f.label :lesson_category %> : </td>
+      <td><%= f.text_field :category %></td>
+    </div>
+    </tr>
+    <tr></tr>
+    <tr>
+    <div class="field">
+      <td><%= f.label :lesson_level %> : </td>
+      <td><%= f.text_field :level %></td>
+    </div>
+    </tr>
+    <tr></tr>
+    <%= f.fields_for :documents do |builder| %>
+      <br/>
+      <tr>
+      <div class="field">
+        <td><%= builder.label :document_title %> : </td>
+        <td><%= builder.text_field :title %></td>
+      </div>
+      </tr>
+      <tr></tr>
+      <tr>
+      <div class="field">
+        <td><%= builder.label :document_image %> : </td>
+        <td><%= builder.file_field :image %></td>
+      </div>
+      </tr>
+      <tr></tr>      
+      <tr>
+      <div class="field">
+        <td><%= builder.link_to_remove "Remove Document" %></td>
+      </div>
+      
+    <% end %>
+        <td><%= f.link_to_add "Add Document", :documents %></td>
+      </tr>  
+      <tr></tr>
+    <br/>
+
+    <%= f.fields_for :questions do |que| %>
+      <tr>
+      <div class="field">
+        <td><%= que.label :question_name %> :</td>
+        <td><%= que.text_field :name %></td>
+      </div>
+      </tr>
+      <tr></tr>      
+      <tr>
+      <div class="field">
+        <td><%= que.label :question_content %> : </td>
+        <td><%= que.text_area :content %></td>
+      </div>
+      </tr>
+      <tr></tr>
+      <tr>
+      <div class="field">
+        <td><%= que.label :question_image %> : </td>
+        <td><%= que.file_field :que_image %></td>
+      </div>
+      </tr>
+      <tr></tr>      
+      <tr>
+      <div class="field">
+        <td><%= que.link_to_remove "Remove Question" %></td>
+      </div>
+        <td><%= f.link_to_add "Add Question", :questions %></td>
+      </tr>
+      <tr></tr>      
+        <%= que.fields_for :answers do |builder| %>
+          <tr>
+          <div class="field">
+            <td><%= builder.label :Correct_or_not? %> : </td>
+            <td><%= builder.check_box :correct_answer %></td>
+          </div>
+          </tr>
+          <tr></tr>
+          <tr>
+          <div class="field">
+            <td><%= builder.label :answer_content %> : </td>
+            <td><%= builder.text_field :content %></td>
+          </div>
+          </tr>
+          <tr></tr>
+          <tr>
+          <div class="field">
+            <td><%= builder.label :answer_image %> : </td>
+            <td><%= builder.file_field :ans_image %></td>
+          </div>
+          </tr>
+          <tr></tr>
+          <tr>
+          <div class="field">
+            <td><%= builder.link_to_remove "Remove Answer" %></td>
+          </div>
+        <% end %>
+            <td><%= que.link_to_add "Add Answer", :answers %></td>
+          </tr>      
+          <tr></tr>
+    <% end %>
+    <%#= f.link_to_add "Add Question", :questions %>
+    <br/>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+    <div class="actions">
+      <td><%= f.submit %></td>
+      <td><%= link_to 'Back', lessons_path %></td>
+    </div>
+    </tr>
+  </table>
+<% end %>

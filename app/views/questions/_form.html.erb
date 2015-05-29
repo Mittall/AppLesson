@@ -1,0 +1,60 @@
+<%= form_for(@question) do |f| %>
+  <% if @question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% @question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :lesson_id %><br>
+    <%= f.number_field :lesson_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :question_image %><br>
+    <%= f.file_field :que_image %>
+  </div>
+
+  <%= f.fields_for :answers do |builder| %>
+    <div class="field">
+      <%= builder.check_box :correct_answer %>
+      <%= builder.label :Correct_or_not? %><br>
+    </div>
+
+    <div class="field">
+      <%= builder.label :content %><br/>
+      <%= builder.text_field :content %><br/>
+    </div>
+
+    <div class="field">
+      <%= builder.label :answer_image %><br/>
+      <%= builder.file_field :ans_image %><br/>
+    </div>
+
+    <div class="field">
+      <%= builder.hidden_field :question_id, :value => @question.id %>
+      <%#= builder.link_to_remove "Remove" %>
+    </div>
+
+  <% end %>
+  <%#= f.link_to_add "Add", :answers %>
+  <br/>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,84 @@
+<h3><%= link_to 'Add New Lesson', new_lesson_path %></h3>
+<% @lessons.each do |lesson| %>
+  <ul>
+    <h3>Lesson#<%= lesson.id %> <%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure? If you delete this all sub details are remove.' } %> </h3><hr/>
+    <li><b>Lesson Name : </b><%= lesson.name %></li>
+    <li><b>Lesson Category : </b><%= lesson.category %></li>
+    <li><b>Lesson level : </b><%= lesson.level %></li>
+    <ul>
+      <h3>Documents</h3><hr/>
+      <% lesson.documents.each do |image| %>
+        <div id="doc">
+        <li><b>Document Title : </b><%= image.title %></li>
+        <% if image.image_content_type == "video/mp4" %>
+          <li><b>Document Video : </b><%= video_tag image.image, :size => "200x200", :controls => true %></li>
+        <% else %>
+          <li><b>Document Image : </b><%= image_tag image.image.url, :size => "50x50" %></li>  
+        <% end %>
+        </div>
+      <% end %>
+      <ol>
+        <% lesson.questions.each do |que|%>
+          <h3>Questions <%= link_to 'Destroy', que, method: :delete, data: { confirm: 'Are you sure? If you delete this answer is remove.' } %></h3><hr/>
+          <div id="que">
+          <li>
+            <b>Question name : </b><%= que.name%><br/>
+            <% if que.que_image_content_type == "video/mp4" %>
+              <b>Question Video : </b><%= video_tag que.que_image, :size => "200x200", :controls => true %>
+            <% else %>
+              <b>Question Image : </b><%= image_tag que.que_image.url, :size => "50x50" %>
+            <% end %>
+          </li>
+          </div>
+          <% que.answers.each do |ans| %>
+            <h3>Answers</h3><hr/>
+            <ol>
+              <div id="ans">
+              <li>
+                <% if ans.correct_answer == true %>
+                  <div id="highlight">
+                    <b>Answer Content : </b><%= ans.content %><br/>
+                    <% if ans.ans_image_content_type == "video/mp4" %>
+                      <b>Answer Video : </b><%= video_tag ans.ans_image, :size => "200x200", :controls => true %>
+                    <% else %>
+                      <b>Answer Image : </b><%= image_tag ans.ans_image.url, :size => "50x50" %>
+                    <% end %>    
+                  </div>
+                <% else %>
+                  <div id="notvalid">
+                    <b>Answer Content : </b><%= ans.content %><br/>
+                    <% if ans.ans_image_content_type == "video/mp4" %>
+                      <b>Answer Video : </b><%= video_tag ans.ans_image, :size => "200x200", :controls => true %>
+                    <% else %>
+                      <b>Answer Image : </b><%= image_tag ans.ans_image.url, :size => "50x50" %>
+                    <% end %>    
+                  </div>
+                <% end %>
+              </li>
+              </div>
+            </ol>
+          <% end %>
+        <% end %>
+      </ol>
+    </ul>
+    <li>
+      <%= link_to 'Show', lesson %>
+      <%= link_to 'Edit', edit_lesson_path(lesson) %>
+      <%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li></br></br>
+  </ul>
+  
+<% end %>
+<h3><%= link_to 'Add New Lesson', new_lesson_path %></h3>
+<br/>
+
+
+<script>
+  $(document).ready(function () {
+    /*$('#doc').hide();
+    $('#que').hide();
+    $('#ans').hide();*/
+  });
+</script>
+
+

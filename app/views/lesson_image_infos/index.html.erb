@@ -1,0 +1,29 @@
+<h1>Listing lesson_image_infos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lesson</th>
+      <th>Title</th>
+      <th>Lesson image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lesson_image_infos.each do |lesson_image_info| %>
+      <tr>
+        <td><%= lesson_image_info.lesson_id %></td>
+        <td><%= lesson_image_info.title %></td>
+        <td><%= lesson_image_info.lesson_image %></td>
+        <td><%= link_to 'Show', lesson_image_info %></td>
+        <td><%= link_to 'Edit', edit_lesson_image_info_path(lesson_image_info) %></td>
+        <td><%= link_to 'Destroy', lesson_image_info, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lesson image info', new_lesson_image_info_path %>
